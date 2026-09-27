@@ -6,12 +6,13 @@ load_dotenv()
 
 def get_connection():
     return psycopg.connect(
-        host="localhost",
-        dbname="postgres",
-        user="postgres",
-        password=os.getenv("POSTGRES_PASSWORD"),
-        port=5432
+        host=os.getenv("DB_HOST", "localhost"),
+        dbname=os.getenv("DB_NAME", "postgres"),
+        user=os.getenv("DB_USER", "postgres"),
+        password=os.getenv("DB_PASSWORD", ),
+        port=os.getenv("DB_port", "5432")
     )
+
 def save_checkin(patient_id, pain_lvl, symptomps, medication_taken, weight, missed_reason):
     conn = get_connection()
     cur = conn.cursor()
